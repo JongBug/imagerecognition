@@ -1,5 +1,6 @@
 package image;
 
+import org.apache.commons.lang3.StringUtils;
 import org.datavec.image.loader.NativeImageLoader;
 import org.deeplearning4j.nn.api.Model;
 import org.deeplearning4j.nn.graph.ComputationGraph;
@@ -36,7 +37,7 @@ public class Application {
            // ComputationGraph vgg16 = VGG16
             NativeImageLoader nativeImageLoader = new NativeImageLoader(224, 224, 3);
 
-            INDArray image = nativeImageLoader.asMatrix(new File("C:\\Users\\DL\\Desktop\\foto\\109APPLE\\IMG_9606.JPG"));
+            INDArray image = nativeImageLoader.asMatrix(new File("C:\\Users\\DL\\Desktop\\foto\\109APPLE\\IMG_E9921.JPG"));
             DataNormalization scaler = new VGG16ImagePreProcessor();
             scaler.transform(image);
 
@@ -61,10 +62,11 @@ public class Application {
 
             }
             String top1 = decodedPredictions.get(0).toString();
+            String one[] = top1.split(":");
             System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
             WebDriver driver = new ChromeDriver();
 
-            driver.navigate().to("https://search.naver.com/search.naver?where=image&sm=tab_jum&query="+top1);
+            driver.navigate().to("https://search.naver.com/search.naver?where=image&sm=tab_jum&query="+one[0]);
 
             //decodedPredictions.get(0);
             System.out.println(predictionsToString(decodedPredictions));
